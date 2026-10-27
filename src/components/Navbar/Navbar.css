@@ -33,6 +33,11 @@
   height: 58px;
   object-fit: contain;
   object-position: center;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  background: transparent;
+  mix-blend-mode: screen;
 }
 
 .nav-panel,
