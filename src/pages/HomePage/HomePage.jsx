@@ -1,294 +1,376 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-    FaAward, FaShieldAlt,
-    FaBolt, FaStar, FaMapMarkerAlt, FaPhoneAlt,
-    FaClock, FaEnvelope, 
+  FaArrowRight,
+  FaCar,
+  FaCheck,
+  FaEnvelope,
+  FaExternalLinkAlt,
+  FaFileAlt,
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaShip,
+  FaTools,
+  FaTruck,
+  FaWhatsapp,
 } from 'react-icons/fa';
-import HeroSlider from '../../components/HeroSlider/HeroSlider';
-import MarqueeBar from '../../components/MarqueeBar/Marqueebar';
 import useSeo from '../../hooks/useSeo';
 import './HomePage.css';
 
+const WHATSAPP_NUMBER = '971523048009';
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+const MAP_URL = 'https://maps.app.goo.gl/8ZFAJySn9cEyVNMG7?g_st=iwb';
 
-const useReveal = () => {
-    const ref = useRef(null);
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.06 }
-        );
-        const elements = ref.current?.querySelectorAll('.reveal');
-        elements?.forEach((el) => observer.observe(el));
-        return () => elements?.forEach((el) => observer.unobserve(el));
-    }, []);
-    return ref;
+const heroSlides = [
+  {
+    id: 'auction',
+    image: '/assets/easycars-auction-generated.png',
+    step: 'Auction yard',
+    title: 'Your dream car',
+    accent: 'starts here.',
+    description: 'Choose from thousands of vehicles being auctioned across the USA.',
+  },
+  {
+    id: 'shipping',
+    image: '/assets/easycars-shipping-generated.png',
+    step: 'Shipping',
+    title: 'From America',
+    accent: 'to the UAE.',
+    description: 'We coordinate the journey across borders and oceans, end to end.',
+  },
+  {
+    id: 'repairs',
+    image: '/assets/easycars-repairs-generated.png',
+    step: 'Repairs',
+    title: 'Handled from',
+    accent: 'start to finish.',
+    description: 'Repairs, spare parts, customs and trucking - managed by one team.',
+  },
+  {
+    id: 'delivery',
+    image: '/assets/easycars-delivery-generated.png',
+    step: 'Delivery',
+    title: 'Delivered to',
+    accent: 'your door.',
+    description: 'The car you wanted, brought home to you in the UAE.',
+  },
+];
+
+const processSteps = [
+  { icon: <FaCar />, image: '/assets/easycars-process-auction.png', imageAlt: 'Vehicle auction yard', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
+  { icon: <FaFileAlt />, image: '/assets/easycars-process-budget.png', imageAlt: 'EasyCars vehicle budget consultation', title: 'Set your budget', text: 'You decide the maximum amount you are comfortable bidding.' },
+  { icon: <FaCheck />, image: '/assets/easycars-process-bidding.png', imageAlt: 'EasyCars professional auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
+  { icon: <FaTruck />, image: '/assets/easycars-process-transport.png', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
+  { icon: <FaShip />, image: '/assets/easycars-process-shipping.png', imageAlt: 'Vehicle shipping and customs', title: 'Shipping and customs', text: 'We coordinate shipping and customs clearance into the UAE.' },
+  { icon: <FaTools />, image: '/assets/easycars-process-repairs.png', imageAlt: 'Vehicle repairs and spare parts', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
+  { icon: <FaCar />, image: '/assets/easycars-process-delivery.png', imageAlt: 'Vehicle delivered to a UAE home', title: 'Delivered to your door', text: 'Your imported vehicle arrives ready for the next drive.' },
+];
+
+const serviceDetails = [
+  'Bidding and auction procedures',
+  'Paperwork',
+  'USA transportation',
+  'Shipping',
+  'Customs clearance',
+  'UAE trucking',
+  'Repairs and spare parts',
+];
+
+const contactCards = [
+  {
+    icon: <FaWhatsapp />,
+    label: 'WhatsApp',
+    value: '+971 52 304 8009',
+    href: WHATSAPP_URL,
+    external: true,
+  },
+  {
+    icon: <FaPhoneAlt />,
+    label: 'Mobile',
+    value: '+971 52 935 9279',
+    href: 'tel:+971529359279',
+  },
+  {
+    icon: <FaMapMarkerAlt />,
+    label: 'Office location',
+    value: 'Sharjah, UAE',
+    href: MAP_URL,
+    external: true,
+  },
+  {
+    icon: <FaInstagram />,
+    label: 'Instagram',
+    value: '@syamraktrv',
+    href: 'https://www.instagram.com/syamraktrv',
+    external: true,
+  },
+  {
+    icon: <FaEnvelope />,
+    label: 'Email',
+    value: 'easycarsimport@gmail.com',
+    href: 'mailto:easycarsimport@gmail.com',
+  },
+];
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoDealer',
+  name: 'EasyCars Auto Trading LLC',
+  url: 'https://www.easycarsauto.com/',
+  logo: 'https://www.easycarsauto.com/assets/easycars-logo-transparent.png',
+  description: 'EasyCars Auto Trading LLC sources, imports, repairs, and delivers dream cars from the USA to the UAE.',
+  telephone: '+971529359279',
+  email: 'easycarsimport@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Sharjah',
+    addressCountry: 'AE',
+  },
+  sameAs: ['https://www.instagram.com/syamraktrv'],
+  hasMap: MAP_URL,
 };
-
-const CountUp = ({ target, suffix }) => {
-    const [count, setCount] = useState(0);
-    const ref = useRef(null);
-    const started = useRef(false);
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !started.current) {
-                    started.current = true;
-                    const steps = 60;
-                    const increment = target / steps;
-                    let current = 0;
-                    const interval = setInterval(() => {
-                        current += increment;
-                        if (current >= target) { setCount(target); clearInterval(interval); }
-                        else setCount(Math.floor(current));
-                    }, 1800 / steps);
-                }
-            },
-            { threshold: 0.3 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, [target]);
-    return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
-};
-
-/* tag field removed — badges no longer rendered */
-const services = [
-    { img: '/assets/Android-Upgrade-card.png',  title: 'Android Upgrade',      desc: 'Latest infotainment with GPS, Apple CarPlay, streaming & full touchscreen control.' },
-    { img: '/assets/camera-360.png',       title: '360° Camera System',   desc: "Bird's-eye surround view for safe parking and effortless maneuvering."              },
-    { img: '/assets/seat-covers-a.png',      title: 'Premium Seat Covers',  desc: 'Luxury leather & diamond-stitched custom covers that transform your cabin.'          },
-    { img: '/assets/Upholstery-Works-c.png',  title: 'Upholstery Works',     desc: 'Professional restoration for seats, door panels and interior trim.'                  },
-    { img: '/assets/car-tinting.png',      title: 'Premium Car Tinting',  desc: 'UV & heat-rejecting films for privacy, comfort and style.'                          },
-    { img: '/assets/LED-Lights.png',      title: 'LED Lighting Upgrade',  desc: 'Upgraded look with energy-efficient, premium LED lighting for enhanced visibility and modern style.'                },
-    { img: '/assets/sound-horns.png',      title: 'Sound Horns',          desc: 'Dual-tone & multi-tone horn systems for enhanced audibility and modern style.'        },
-    { img: '/assets/car-stereo.png',       title: 'Car Stereo Upgrade',   desc: 'High-fidelity speakers, subwoofers, and amps for immersive sound.'                   },
-    { img: '/assets/lock-system.png',      title: 'Smart Lock Systems',   desc: 'Keyless entry, alarm features and smart security for maximum protection.'            },
-    { img: '/assets/car-batteries.png',    title: 'Car Batteries',        desc: 'Premium automotive batteries built for all-weather reliability.'                     },
-];
-
-const stats = [
-    { num: 5000, suffix: '+', label: 'Cars Upgraded'    },
-    { num: 50,   suffix: '+', label: 'Premium Products' },
-    { num: 100,  suffix: '%', label: 'Satisfaction'     },
-    { num: 15,   suffix: '+', label: 'Expert Staff'     },
-];
-
-const features = [
-    { icon: <FaAward />,     label: 'Certified Professionals', sub: 'Factory-trained technicians' },
-    { icon: <FaShieldAlt />, label: 'Warranty Covered',        sub: 'All work fully guaranteed'   },
-    { icon: <FaBolt />,      label: 'Fast Installation',       sub: 'Same-day service available'  },
-    { icon: <FaStar />,      label: 'Premium Quality',         sub: 'Top-grade materials only'    },
-];
 
 const HomePage = () => {
-    const pageRef = useReveal();
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [enquirySent, setEnquirySent] = useState(false);
 
-    useEffect(() => {
-        if (window.location.hash) {
-            const el = document.querySelector(window.location.hash);
-            if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
-        }
-    }, []);
+  useSeo({
+    title: 'EasyCars Auto Trading | Your Dream Car, Our Mission',
+    description: 'EasyCars Auto Trading LLC makes dream-car ownership possible by sourcing, importing, repairing, and delivering vehicles from the USA to the UAE.',
+    canonicalUrl: 'https://www.easycarsauto.com/',
+    ogImage: 'https://www.easycarsauto.com/assets/easycars-logo-transparent.png',
+    schemas: [localBusinessSchema],
+  });
 
-    // LocalBusiness / Organization Schema for GEO & Search
-    const localBusinessSchema = {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "@id": "https://carplexuae.com/#organization",
-        "name": "Carplex Car Accessories LLC",
-        "legalName": "Carplex Car Accessories LLC",
-        "url": "https://carplexuae.com/",
-        "logo": "https://carplexuae.com/assets/carples-logo-top.png",
-        "image": "https://carplexuae.com/assets/interior-design.png",
-        "description": "Premium car accessories shop in Nad Al Hammar, Dubai. Specializing in Android screen upgrades, 360 camera installation, seat covers, custom upholstery, window tinting, and audio upgrades.",
-        "telephone": "+971502292861",
-        "email": "info@carplexuae.com",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Al Mansoori Building, Shop 04, Nad Al Hammar",
-            "addressLocality": "Dubai",
-            "addressRegion": "Dubai",
-            "addressCountry": "AE"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 25.19,
-            "longitude": 55.35
-        },
-        "openingHoursSpecification": [
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-                "opens": "09:30",
-                "closes": "22:00"
-            },
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Friday",
-                "opens": "16:30",
-                "closes": "22:30"
-            }
-        ],
-        "sameAs": [
-            "https://www.instagram.com/carplex_accessories"
-        ]
-    };
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
+    }, 5600);
+    return () => window.clearInterval(timer);
+  }, []);
 
-    useSeo({
-        title: "Carplex Car Accessories | Premium Auto Upgrades in Dubai",
-        description: "Upgrade your ride at Dubai's #1 car accessories shop. We specialize in plug-and-play Android screens, 360° surround-view cameras, custom leather seat covers, full upholstery, heat-rejecting ceramic tinting, and audio upgrades in Nad Al Hammar.",
-        canonicalUrl: "https://carplexuae.com/",
-        ogType: "website",
-        ogImage: "https://carplexuae.com/assets/carplex-logo-top.png",
-        schemas: [localBusinessSchema]
-    });
+  const handleEnquirySubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const message = [
+      'Hello EasyCars, I would like to enquire about a vehicle.',
+      `Car make and model: ${data.get('makeModel')}`,
+      `Vehicle budget: ${data.get('budget')}`,
+      `Name: ${data.get('name')}`,
+      `WhatsApp / contact number: ${data.get('contact')}`,
+    ].join('\n');
 
-    return (
-        <div ref={pageRef} className="hp-root">
+    form.reset();
+    window.location.href = `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
+    setEnquirySent(true);
+    window.setTimeout(() => setEnquirySent(false), 4500);
+  };
 
-            <HeroSlider />
-            <MarqueeBar />
-
-            <section className="hp-stats">
-                <div className="hp-stats-inner container">
-                    {stats.map((s, i) => (
-                        <div className="hp-stat reveal" key={i} style={{ '--delay': `${i * 0.1}s` }}>
-                            <div className="hp-stat-num"><CountUp target={s.num} suffix={s.suffix} /></div>
-                            <div className="hp-stat-bar" />
-                            <div className="hp-stat-label">{s.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <section className="hp-services section" id="services">
-                <div className="container">
-                    <div className="hp-section-eyebrow reveal">
-                        <span className="hp-eyebrow-line" />
-                        <span className="hp-eyebrow-text">What We Offer</span>
-                        <span className="hp-eyebrow-line" />
-                    </div>
-                    <h2 className="hp-section-heading reveal">Our <em>Services</em></h2>
-
-                    <div className="hp-services-grid">
-                        {services.map((svc, i) => (
-                            <div
-                                className="hp-svc-card reveal"
-                                key={i}
-                                style={{ '--delay': `${(i % 5) * 0.07}s` }}
-                            >
-                                {/* No tag badge */}
-                                <div className="hp-svc-img-wrap">
-                                    <img src={svc.img} alt={svc.title} loading="lazy" />
-                                    <div className="hp-svc-overlay" />
-                                </div>
-                                <div className="hp-svc-body">
-                                    <h3 className="hp-svc-title">{svc.title}</h3>
-                                    <p className="hp-svc-desc">{svc.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <section className="hp-about section" id="about">
-                <div className="hp-about-slash" aria-hidden="true" />
-                <div className="container hp-about-grid">
-                    <div className="hp-about-visual reveal">
-                        <div className="hp-about-img-frame">
-                            <img src="/assets/interior-design.png" alt="Carplex workshop" />
-                        </div>
-                    </div>
-                    <div className="hp-about-text reveal">
-                        <div className="hp-section-eyebrow hp-eyebrow-left">
-                            <span className="hp-eyebrow-line" />
-                            <span className="hp-eyebrow-text">Why Carplex</span>
-                        </div>
-                        <h2 className="hp-section-heading">
-                            Dubai's #1<br /><em>Car Accessories</em><br />Specialist
-                        </h2>
-                        <p>
-                            With over a decade in the UAE automotive market, Carplex has built a
-                            reputation for premium quality, expert installations, and service that
-                            never compromises.
-                        </p>
-                        <p>
-                            Our technicians use only the finest materials and latest technology —
-                            because your car deserves nothing less.
-                        </p>
-                        <div className="hp-features-grid">
-                            {features.map((f, i) => (
-                                <div className="hp-feature reveal" key={i} style={{ '--delay': `${i * 0.08}s` }}>
-                                    <div className="hp-feature-icon">{f.icon}</div>
-                                    <div>
-                                        <strong>{f.label}</strong>
-                                        <span>{f.sub}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="hp-contact section" id="contact">
-                <div className="container">
-                    <div className="hp-section-eyebrow reveal">
-                        <span className="hp-eyebrow-line" />
-                        <span className="hp-eyebrow-text">Get In Touch</span>
-                        <span className="hp-eyebrow-line" />
-                    </div>
-                    <h2 className="hp-section-heading reveal">Visit <em>Our Showroom</em></h2>
-                    <div className="hp-contact-layout">
-                        <div className="hp-contact-cards reveal">
-                            {[
-                                {
-                                    icon: <FaMapMarkerAlt />, title: 'Find Us',
-                                    lines: ['Al Mansoori Building, Shop 04','Nad Al Hmmar, Dubai — UAE','Ras Al Khor, Dubai — UAE'],
-                                },
-                                {
-                                    icon: <FaPhoneAlt />, title: 'Call Us',
-                                    links: [{ href: 'tel:+0042711275', label: '+(04) 271 1275' },{ href: 'tel:+971502292861', label: '+971 50 229 2861' }],
-                                },
-                                {
-                                    icon: <FaClock />, title: 'Open Hours',
-                                    lines: ['Sat – Thu: 9:30 AM – 10:00 PM','Friday: 4:30 PM – 10:30 PM'],
-                                },
-                                {
-                                    icon: <FaEnvelope />, title: 'Email',
-                                    links: [{ href: 'mailto:info@carplexuae.com', label: 'info@carplexuae.com' }],
-                                },
-                            ].map((item, i) => (
-                                <div className="hp-contact-card" key={i}>
-                                    <div className="hp-contact-card-icon">{item.icon}</div>
-                                    <div className="hp-contact-card-body">
-                                        <h4>{item.title}</h4>
-                                        {item.lines?.map((l, j) => <p key={j}>{l}</p>)}
-                                        {item.links?.map((l, j) => <p key={j}><a href={l.href}>{l.label}</a></p>)}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="hp-map reveal">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.0!2d55.35!3d25.19!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDExJzI0LjAiTiA1NcKwMjEnMDAuMCJF!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
-                                allowFullScreen="" loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="Carplex location"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </section>
+  return (
+    <div className="easycars-page" id="top">
+      <section className="hero" aria-label="EasyCars import journey">
+        <div className="hero-slides">
+          {heroSlides.map((slide, index) => (
+            <article className={`hero-slide ${index === activeSlide ? 'hero-slide--active' : ''}`} key={slide.id} aria-hidden={index !== activeSlide}>
+              <img src={slide.image} alt="" className="hero-slide-image" />
+              <div className="hero-slide-shade" />
+            </article>
+          ))}
         </div>
-    );
+
+        <div className="hero-grid" />
+        <div className="hero-content container">
+          <p className="hero-kicker"><span className="hero-kicker-line" /> EasyCars Auto Trading LLC</p>
+          <p className="hero-step">{heroSlides[activeSlide].step}</p>
+          <h1>{heroSlides[activeSlide].title}<br /><em>{heroSlides[activeSlide].accent}</em></h1>
+          <p className="hero-description">{heroSlides[activeSlide].description}</p>
+          <div className="hero-actions">
+            <a className="button button--red" href="#enquiry">Start your enquiry <FaArrowRight /></a>
+            <a className="button button--ghost" href="#process">How it works</a>
+          </div>
+        </div>
+
+        <div className="hero-bottom container">
+          <p>AUCTION <span>/</span> IMPORT <span>/</span> REPAIR <span>/</span> DRIVE</p>
+          <div className="hero-dots" aria-label="Hero slides">
+            {heroSlides.map((slide, index) => (
+              <button
+                type="button"
+                key={slide.id}
+                className={index === activeSlide ? 'is-active' : ''}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show ${slide.step}`}
+                aria-pressed={index === activeSlide}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="partner-strip" aria-label="Auction marketplace partners">
+        <div className="container partner-inner">
+          <p>Access to the world's leading auction platforms</p>
+          <div className="partner-logos">
+            <img src="/assets/partner-copart.jpg" alt="Copart" />
+            <img src="/assets/partner-iaa.jpg" alt="IAA" />
+            <img src="/assets/partner-manheim.jpg" alt="Manheim" />
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section about-section" id="about">
+        <div className="container about-grid">
+          <div className="section-intro">
+            <p className="eyebrow">About us</p>
+            <h2>Your dream car.<br /><span>Our mission.</span></h2>
+          </div>
+          <div className="about-copy">
+            <p className="lead-copy">At EasyCars Auto Trading LLC, we believe that owning your dream car should never feel impossible.</p>
+            <p>There are countless vehicles around the world that people dream about owning - cars that may be rare, unavailable, difficult to find, or simply too complicated to bring into the UAE.</p>
+            <p>We exist to change that. If the car exists, we believe there is a way to bring it to you. Our goal is simple: make your dream car achievable and make the entire process as easy as possible.</p>
+            <a className="text-link" href="#enquiry">Tell us what you want <FaArrowRight /></a>
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section process-section" id="process">
+        <div className="container">
+          <div className="section-heading-row">
+            <div>
+              <p className="eyebrow">Import process</p>
+              <h2>From an auction yard<br /><span>to your home.</span></h2>
+            </div>
+            <p className="section-heading-copy">We manage the journey from start to finish, giving you one team for every step between the USA and the UAE.</p>
+          </div>
+
+          <div className="process-layout">
+            <div className="process-list">
+              {processSteps.map((step) => (
+                <div className="process-card" key={step.title}>
+                  <img className="process-card-image" src={step.image} alt={step.imageAlt} />
+                  <div className="process-card-body">
+                    <span className="process-icon">{step.icon}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.text}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="process-summary">
+              <p className="summary-label">We take care of everything that follows</p>
+              <ul>
+                {serviceDetails.map((item) => <li key={item}><FaCheck /> {item}</li>)}
+              </ul>
+              <p className="summary-note">Whether you want to repair the vehicle at one of our own facilities or have it delivered directly to a garage of your choice, we make it happen.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="statement-section mission-section" id="mission">
+        <div className="statement-image statement-image--repairs" style={{ backgroundImage: "url('/assets/easycars-repairs-generated.png')" }} />
+        <div className="container statement-content">
+          <p className="eyebrow">Company mission</p>
+          <h2>Your dream matters<br /><span>to us.</span></h2>
+          <p>For us, this isn't just about moving cars from one country to another. It's about the moment you finally see the car you've always wanted sitting in your garage.</p>
+          <p>We understand that a dream car can mean years of saving, planning, researching and waiting. That's why we treat every vehicle as more than just another transaction. It is someone's dream, and we take that personally.</p>
+        </div>
+      </section>
+
+      <section className="content-section vision-section" id="vision">
+        <div className="container vision-grid">
+          <div className="vision-card vision-card--dark">
+            <p className="eyebrow">Company vision</p>
+            <h2>Make every<br /><span>dream car possible.</span></h2>
+            <p>Our vision is to make dream-car ownership accessible, straightforward and achievable. We remove the complexity from international vehicle sourcing and importing by handling the entire process under one roof.</p>
+          </div>
+          <div className="vision-card vision-card--red">
+            <p className="quote-mark">“</p>
+            <p className="vision-quote">We want our customers to stop saying: <strong>I wish I could own that car.</strong> And start saying: <strong>How do we get it here?</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section className="statement-section promise-section" id="promise">
+        <div className="statement-image statement-image--delivery" style={{ backgroundImage: "url('/assets/easycars-delivery-generated.png')" }} />
+        <div className="container statement-content statement-content--right">
+          <p className="eyebrow">Company promise</p>
+          <h2>You dream it.<br /><span>We bring it home.</span></h2>
+          <p>You don't need to know how international auctions work. You don't need to arrange American trucking, figure out shipping, navigate customs, search for spare parts, or coordinate multiple garages.</p>
+          <p className="promise-line">All you need to do is tell us: <strong>This is the car I want.</strong></p>
+        </div>
+      </section>
+
+      <section className="content-section enquiry-section" id="enquiry">
+        <div className="container enquiry-grid">
+          <div className="enquiry-intro">
+            <p className="eyebrow">Enquiry form</p>
+            <h2>Tell us about<br /><span>your next car.</span></h2>
+            <p>Share the basics and we will start looking for the right vehicle. Your enquiry opens WhatsApp with the details ready to send to our team.</p>
+            <a className="direct-whatsapp" href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FaWhatsapp /> Chat directly on WhatsApp</a>
+          </div>
+          <form className="enquiry-form" onSubmit={handleEnquirySubmit}>
+            <label>
+              <span>Car make and model</span>
+              <input type="text" name="makeModel" placeholder="e.g. 2022 Nissan GT-R" required />
+            </label>
+            <label>
+              <span>Vehicle budget</span>
+              <input type="text" name="budget" placeholder="e.g. AED 180,000" required />
+            </label>
+            <div className="form-row">
+              <label>
+                <span>Your name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                <span>WhatsApp / contact</span>
+                <input type="tel" name="contact" placeholder="+971 ..." required />
+              </label>
+            </div>
+            <button className="button button--red form-submit" type="submit">
+              {enquirySent ? 'WhatsApp enquiry ready' : 'Send enquiry'} <FaArrowRight />
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section className="content-section contact-section" id="contact">
+        <div className="container">
+          <div className="contact-heading">
+            <div>
+              <p className="eyebrow">Contact us</p>
+              <h2>Let's find<br /><span>your way home.</span></h2>
+            </div>
+            <a className="map-link" href={MAP_URL} target="_blank" rel="noreferrer">Open location in Google Maps <FaExternalLinkAlt /></a>
+          </div>
+          <div className="contact-grid">
+            {contactCards.map((card) => (
+              <a
+                className="contact-card"
+                href={card.href}
+                key={card.label}
+                target={card.external ? '_blank' : undefined}
+                rel={card.external ? 'noreferrer' : undefined}
+              >
+                <span className="contact-icon">{card.icon}</span>
+                <span className="contact-label">{card.label}</span>
+                <strong>{card.value}</strong>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <a className="floating-whatsapp" href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Chat with EasyCars on WhatsApp">
+        <FaWhatsapp />
+        <span>Chat with us</span>
+      </a>
+    </div>
+  );
 };
 
 export default HomePage;

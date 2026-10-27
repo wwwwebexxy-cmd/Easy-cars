@@ -1,1 +1,3 @@
-/* Empty - all styles moved to component CSS files */
+.app-shell {
+  min-height: 100vh;
+}

@@ -1,105 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaPhoneAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { FaBars, FaPhoneAlt, FaTimes, FaWhatsapp } from 'react-icons/fa';
 import './Navbar.css';
 
-const navbarVariants = {
-    hidden: { opacity: 0, y: -40 },
-    visible: {
-        opacity: 1, y: 0,
-        transition: {
-            duration: 0.8,
-            ease: [0.25, 0.46, 0.45, 0.94],
-            delay: 0.3,
-            when: 'beforeChildren',
-            staggerChildren: 0.08,
-        },
-    },
-};
-
-const navLinkVariants = {
-    hidden: { opacity: 0, y: -12 },
-    visible: {
-        opacity: 1, y: 0,
-        transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-};
+const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Process', href: '#process' },
+  { label: 'Enquire', href: '#enquiry' },
+  { label: 'Contact', href: '#contact' },
+];
 
 const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
-    const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 60);
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        document.body.style.overflow = menuOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [menuOpen]);
-
-    const toggleMenu = () => setMenuOpen(prev => !prev);
-    const closeMenu = () => setMenuOpen(false);
-
-    const handleCall = (e) => {
-        e.preventDefault();
-        window.location.href = 'tel:+971502292861';
-        setTimeout(() => setMenuOpen(false), 150);
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
     };
+  }, [menuOpen]);
 
-    const isActive = (path) => location.pathname === path ? 'active' : '';
+  const closeMenu = () => setMenuOpen(false);
 
-    return (
-        <motion.nav
-            className={`navbar ${scrolled ? 'scrolled' : ''}`}
-            id="navbar"
-            variants={navbarVariants}
-            initial="hidden"
-            animate="visible"
+  return (
+    <header className={`site-nav ${scrolled ? 'site-nav--scrolled' : ''}`}>
+      <div className="nav-inner container">
+        <a className="brand" href="#top" onClick={closeMenu} aria-label="EasyCars home">
+          <img src="/assets/easycars-logo-transparent.png" alt="EasyCars Auto Trading" />
+        </a>
+
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
         >
-            <div className="navbar-container">
-                <motion.div variants={navLinkVariants}>
-                    <Link to="/" className="logo" onClick={closeMenu}>
-                        <img src="/assets/carples logo.png" alt="Carplex" className="logo-img" />
-                    </Link>
-                </motion.div>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
 
-                <div className={`nav-backdrop ${menuOpen ? 'open' : ''}`} onClick={closeMenu} />
-
-                <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-                    <motion.li variants={navLinkVariants}>
-                        <Link to="/" className={isActive('/')} onClick={closeMenu}>Home</Link>
-                    </motion.li>
-                    <motion.li variants={navLinkVariants}>
-                        <a href="/#about" onClick={closeMenu}>About</a>
-                    </motion.li>
-                    <motion.li variants={navLinkVariants}>
-                        <a href="/#services" onClick={closeMenu}>Services</a>
-                    </motion.li>
-                    <motion.li variants={navLinkVariants}>
-                        <Link to="/products" className={isActive('/products')} onClick={closeMenu}>Products</Link>
-                    </motion.li>
-                    <motion.li variants={navLinkVariants}>
-                        <a href="/#contact" onClick={closeMenu}>Contact</a>
-                    </motion.li>
-                    <motion.li variants={navLinkVariants}>
-                        <a href="tel:+971502292861" className="nav-cta" onClick={handleCall}>
-                            <FaPhoneAlt size={13} /> Call Now
-                        </a>
-                    </motion.li>
-                </ul>
-
-                <div className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-                    <span></span><span></span><span></span>
-                </div>
-            </div>
-        </motion.nav>
-    );
+        <div className={`nav-panel ${menuOpen ? 'nav-panel--open' : ''}`}>
+          <nav aria-label="Main navigation">
+            {navItems.map((item) => (
+              <a href={item.href} key={item.href} onClick={closeMenu}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="nav-actions">
+            <a className="nav-phone" href="tel:+971529359279" onClick={closeMenu}>
+              <FaPhoneAlt />
+              <span>+971 52 935 9279</span>
+            </a>
+            <a className="nav-whatsapp" href="https://wa.me/971523048009" target="_blank" rel="noreferrer" onClick={closeMenu}>
+              <FaWhatsapp />
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Navbar;
