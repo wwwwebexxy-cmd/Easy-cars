@@ -457,7 +457,8 @@
 }
 
 .process-summary {
-  min-height: 100%;
+  align-self: start;
+  height: fit-content;
   padding: 38px 36px;
   border: 1px solid rgba(239, 31, 47, 0.3);
   background: linear-gradient(145deg, rgba(239, 31, 47, 0.13), rgba(17, 17, 20, 0.7));

@@ -33,7 +33,17 @@ const Navbar = () => {
     <header className={`site-nav ${scrolled ? 'site-nav--scrolled' : ''}`}>
       <div className="nav-inner container">
         <a className="brand" href="#top" onClick={closeMenu} aria-label="EasyCars home">
-          <img src="/assets/easycars-logo-transparent.webp" alt="EasyCars Auto Trading" />
+          <video
+            className="brand-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/assets/easycars-navbar-logo.webm" type="video/webm" />
+          </video>
         </a>
 
         <button

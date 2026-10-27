@@ -27,7 +27,8 @@
   display: block;
 }
 
-.brand img {
+.brand-video {
+  display: block;
   width: 100%;
   height: 58px;
   object-fit: contain;
@@ -181,7 +182,7 @@
     width: 126px;
   }
 
-  .brand img {
+  .brand-video {
     height: 52px;
   }
 
