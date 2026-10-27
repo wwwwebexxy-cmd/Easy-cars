@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* ── Carplex Brand Palette ── */
+  --c-red:        #ef2c24;
+  --c-red-coral:  #fd584f;
+  --c-red-pure:   #fe0101;
+  --c-brown-dark: #260702;
+  --c-brown-deep: #4b0b02;
+  --c-brown-mid:  #6c2b02;
+  --c-gold:       #bf6e0c;
+  --c-yellow:     #fdec65;
+  --c-yellow-lt:  #fcf89f;
+
+  /* ── Backgrounds ── */
+  --bg-primary:   #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card:      #161616;
+  --bg-glass:     rgba(22, 22, 22, 0.75);
+
+  /* ── Accent System ── */
+  --accent:           #ef2c24;
+  --accent-secondary: #fcf89f;
+  --accent-dark:      #4b0b02;
+  --accent-glow:      rgba(239, 44, 36, 0.30);
+
+  /* ── Text ── */
+  --text-primary:   #ffffff;
+  --text-secondary: #c8c8c8;
+  --text-muted:     #bf6e0c;
+
+  /* ── Borders ── */
+  --border:       rgba(255, 255, 255, 0.10);
+  --border-hover: rgba(253, 88, 79, 0.5);
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ========== SECTION SHARED ========== */
+.section {
+  padding: 100px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-tag {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.section-title span {
+  background: linear-gradient(135deg, var(--accent), #fdec65);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 17px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.5;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  filter: blur(10px);
+  transition: opacity 1.2s cubic-bezier(0.2, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.2, 1, 0.3, 1),
+    filter 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* 320px Responsiveness for all screens */
+@media (max-width: 360px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .section-desc {
+    font-size: 14px;
+  }
+}
