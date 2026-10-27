@@ -33,7 +33,7 @@ const Navbar = () => {
     <header className={`site-nav ${scrolled ? 'site-nav--scrolled' : ''}`}>
       <div className="nav-inner container">
         <a className="brand" href="#top" onClick={closeMenu} aria-label="EasyCars home">
-          <img src="/assets/easycars-logo-transparent.png" alt="EasyCars Auto Trading" />
+          <img src="/assets/easycars-logo-transparent.webp" alt="EasyCars Auto Trading" />
         </a>
 
         <button

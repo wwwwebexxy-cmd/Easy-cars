@@ -6,7 +6,7 @@ const Footer = () => (
     <div className="container footer-main">
       <div className="footer-brand">
         <a className="footer-logo" href="#top" aria-label="EasyCars home">
-          <img src="/assets/easycars-logo-transparent.png" alt="EasyCars Auto Trading" />
+          <img src="/assets/easycars-logo-transparent.webp" alt="EasyCars Auto Trading" />
         </a>
         <p>You dream it. We find it. We bring it home.</p>
       </div>

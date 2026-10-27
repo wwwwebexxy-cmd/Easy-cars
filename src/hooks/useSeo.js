@@ -57,8 +57,12 @@ export const useSeo = ({ title, description, canonicalUrl, ogType = 'website', o
         updateOgTag('og:description', description);
         updateOgTag('og:url', canonicalUrl);
         updateOgTag('og:type', ogType);
+        updateOgTag('og:site_name', 'EasyCars Auto Trading LLC');
+        updateOgTag('og:locale', 'en_AE');
         if (ogImage) {
             updateOgTag('og:image', ogImage);
+            updateOgTag('og:image:type', 'image/webp');
+            updateOgTag('og:image:alt', 'EasyCars Auto Trading LLC');
         }
 
         // 5. Update Twitter Card Tags
@@ -78,6 +82,7 @@ export const useSeo = ({ title, description, canonicalUrl, ogType = 'website', o
         updateTwitterTag('twitter:description', description);
         if (ogImage) {
             updateTwitterTag('twitter:image', ogImage);
+            updateTwitterTag('twitter:image:alt', 'EasyCars Auto Trading LLC');
         }
 
         // 6. Inject JSON-LD Schema Scripts

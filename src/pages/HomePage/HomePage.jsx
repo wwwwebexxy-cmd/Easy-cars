@@ -15,16 +15,24 @@ import {
   FaWhatsapp,
 } from 'react-icons/fa';
 import useSeo from '../../hooks/useSeo';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  FAQ_ITEMS,
+  MAP_URL,
+  SITE_URL,
+} from '../../seo/siteSeo';
 import './HomePage.css';
 
 const WHATSAPP_NUMBER = '971523048009';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
-const MAP_URL = 'https://maps.app.goo.gl/8ZFAJySn9cEyVNMG7?g_st=iwb';
 
 const heroSlides = [
   {
     id: 'auction',
-    image: '/assets/easycars-auction-generated.png',
+    image: '/assets/easycars-auction-generated.webp',
+    alt: 'Vehicle auction yard in the USA',
     step: 'Auction yard',
     title: 'Your dream car',
     accent: 'starts here.',
@@ -32,7 +40,8 @@ const heroSlides = [
   },
   {
     id: 'shipping',
-    image: '/assets/easycars-shipping-generated.png',
+    image: '/assets/easycars-shipping-generated.webp',
+    alt: 'Vehicle shipping from America to the UAE',
     step: 'Shipping',
     title: 'From America',
     accent: 'to the UAE.',
@@ -40,7 +49,8 @@ const heroSlides = [
   },
   {
     id: 'repairs',
-    image: '/assets/easycars-repairs-generated.png',
+    image: '/assets/easycars-repairs-generated.webp',
+    alt: 'Vehicle repairs and preparation before delivery',
     step: 'Repairs',
     title: 'Handled from',
     accent: 'start to finish.',
@@ -48,7 +58,8 @@ const heroSlides = [
   },
   {
     id: 'delivery',
-    image: '/assets/easycars-delivery-generated.png',
+    image: '/assets/easycars-delivery-generated.webp',
+    alt: 'Imported vehicle delivered to a UAE customer',
     step: 'Delivery',
     title: 'Delivered to',
     accent: 'your door.',
@@ -57,13 +68,13 @@ const heroSlides = [
 ];
 
 const processSteps = [
-  { icon: <FaCar />, image: '/assets/easycars-process-auction.png', imageAlt: 'Vehicle auction yard', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
-  { icon: <FaFileAlt />, image: '/assets/easycars-process-budget.png', imageAlt: 'EasyCars vehicle budget consultation', title: 'Set your budget', text: 'You decide the maximum amount you are comfortable bidding.' },
-  { icon: <FaCheck />, image: '/assets/easycars-process-bidding.png', imageAlt: 'EasyCars professional auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
-  { icon: <FaTruck />, image: '/assets/easycars-process-transport.png', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
-  { icon: <FaShip />, image: '/assets/easycars-process-shipping.png', imageAlt: 'Vehicle shipping and customs', title: 'Shipping and customs', text: 'We coordinate shipping and customs clearance into the UAE.' },
-  { icon: <FaTools />, image: '/assets/easycars-process-repairs.png', imageAlt: 'Vehicle repairs and spare parts', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
-  { icon: <FaCar />, image: '/assets/easycars-process-delivery.png', imageAlt: 'Vehicle delivered to a UAE home', title: 'Delivered to your door', text: 'Your imported vehicle arrives ready for the next drive.' },
+  { icon: <FaCar />, image: '/assets/easycars-process-auction.webp', imageAlt: 'Vehicle auction yard', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
+  { icon: <FaFileAlt />, image: '/assets/easycars-process-budget.webp', imageAlt: 'EasyCars vehicle budget consultation', title: 'Set your budget', text: 'You decide the maximum amount you are comfortable bidding.' },
+  { icon: <FaCheck />, image: '/assets/easycars-process-bidding.webp', imageAlt: 'EasyCars professional auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
+  { icon: <FaTruck />, image: '/assets/easycars-process-transport.webp', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
+  { icon: <FaShip />, image: '/assets/easycars-process-shipping.webp', imageAlt: 'Vehicle shipping and customs', title: 'Shipping and customs', text: 'We coordinate shipping and customs clearance into the UAE.' },
+  { icon: <FaTools />, image: '/assets/easycars-process-repairs.webp', imageAlt: 'Vehicle repairs and spare parts', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
+  { icon: <FaCar />, image: '/assets/easycars-process-delivery.webp', imageAlt: 'Vehicle delivered to a UAE home', title: 'Delivered to your door', text: 'Your imported vehicle arrives ready for the next drive.' },
 ];
 
 const serviceDetails = [
@@ -112,34 +123,15 @@ const contactCards = [
   },
 ];
 
-const localBusinessSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'AutoDealer',
-  name: 'EasyCars Auto Trading LLC',
-  url: 'https://www.easycarsauto.com/',
-  logo: 'https://www.easycarsauto.com/assets/easycars-logo-transparent.png',
-  description: 'EasyCars Auto Trading LLC sources, imports, repairs, and delivers dream cars from the USA to the UAE.',
-  telephone: '+971529359279',
-  email: 'easycarsimport@gmail.com',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Sharjah',
-    addressCountry: 'AE',
-  },
-  sameAs: ['https://www.instagram.com/syamraktrv'],
-  hasMap: MAP_URL,
-};
-
 const HomePage = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [enquirySent, setEnquirySent] = useState(false);
 
   useSeo({
-    title: 'EasyCars Auto Trading | Your Dream Car, Our Mission',
-    description: 'EasyCars Auto Trading LLC makes dream-car ownership possible by sourcing, importing, repairing, and delivering vehicles from the USA to the UAE.',
-    canonicalUrl: 'https://www.easycarsauto.com/',
-    ogImage: 'https://www.easycarsauto.com/assets/easycars-logo-transparent.png',
-    schemas: [localBusinessSchema],
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    canonicalUrl: `${SITE_URL}/`,
+    ogImage: DEFAULT_OG_IMAGE,
   });
 
   useEffect(() => {
@@ -173,7 +165,7 @@ const HomePage = () => {
         <div className="hero-slides">
           {heroSlides.map((slide, index) => (
             <article className={`hero-slide ${index === activeSlide ? 'hero-slide--active' : ''}`} key={slide.id} aria-hidden={index !== activeSlide}>
-              <img src={slide.image} alt="" className="hero-slide-image" />
+              <img src={slide.image} alt={slide.alt} className="hero-slide-image" />
               <div className="hero-slide-shade" />
             </article>
           ))}
@@ -212,9 +204,9 @@ const HomePage = () => {
         <div className="container partner-inner">
           <p>Access to the world's leading auction platforms</p>
           <div className="partner-logos">
-            <img src="/assets/partner-copart.jpg" alt="Copart" />
-            <img src="/assets/partner-iaa.jpg" alt="IAA" />
-            <img src="/assets/partner-manheim.jpg" alt="Manheim" />
+            <img src="/assets/partner-copart.webp" alt="Copart" />
+            <img src="/assets/partner-iaa.webp" alt="IAA" />
+            <img src="/assets/partner-manheim.webp" alt="Manheim" />
           </div>
         </div>
       </section>
@@ -271,7 +263,7 @@ const HomePage = () => {
       </section>
 
       <section className="statement-section mission-section" id="mission">
-        <div className="statement-image statement-image--repairs" style={{ backgroundImage: "url('/assets/easycars-repairs-generated.png')" }} />
+        <div className="statement-image statement-image--repairs" style={{ backgroundImage: "url('/assets/easycars-repairs-generated.webp')" }} role="img" aria-label="Vehicle repairs and preparation" />
         <div className="container statement-content">
           <p className="eyebrow">Company mission</p>
           <h2>Your dream matters<br /><span>to us.</span></h2>
@@ -294,8 +286,26 @@ const HomePage = () => {
         </div>
       </section>
 
+      <section className="content-section faq-section" id="faq" aria-labelledby="faq-title">
+        <div className="container faq-grid">
+          <div className="faq-intro">
+            <p className="eyebrow">Frequently asked questions</p>
+            <h2 id="faq-title">Clear answers.<br /><span>One simple journey.</span></h2>
+            <p>Learn how EasyCars helps you move from a USA auction search to vehicle delivery in the UAE.</p>
+          </div>
+          <div className="faq-list">
+            {FAQ_ITEMS.map((item) => (
+              <details className="faq-item" key={item.question}>
+                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="statement-section promise-section" id="promise">
-        <div className="statement-image statement-image--delivery" style={{ backgroundImage: "url('/assets/easycars-delivery-generated.png')" }} />
+        <div className="statement-image statement-image--delivery" style={{ backgroundImage: "url('/assets/easycars-delivery-generated.webp')" }} role="img" aria-label="Imported vehicle delivered to a UAE customer" />
         <div className="container statement-content statement-content--right">
           <p className="eyebrow">Company promise</p>
           <h2>You dream it.<br /><span>We bring it home.</span></h2>
