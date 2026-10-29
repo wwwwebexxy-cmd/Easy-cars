@@ -263,7 +263,7 @@ const HomePage = () => {
       </section>
 
       <section className="statement-section mission-section" id="mission">
-        <div className="statement-image statement-image--repairs" style={{ backgroundImage: "url('/assets/easycars-company-mission.webp')" }} role="img" aria-label="Automotive technicians repairing a vehicle" />
+        <div className="statement-image statement-image--repairs" style={{ backgroundImage: "url('/assets/easycars-company-mission-branded.webp')" }} role="img" aria-label="Automotive technicians repairing a vehicle" />
         <div className="container statement-content">
           <p className="eyebrow">Company mission</p>
           <h2>Your dream matters<br /><span>to us.</span></h2>
