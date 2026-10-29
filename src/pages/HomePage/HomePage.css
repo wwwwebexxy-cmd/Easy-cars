@@ -519,7 +519,7 @@
 }
 
 .mission-section .statement-image::after {
-  background: linear-gradient(90deg, rgba(5, 5, 5, 0.62) 0%, rgba(5, 5, 5, 0.42) 46%, rgba(5, 5, 5, 0.24) 100%), linear-gradient(0deg, rgba(5, 5, 5, 0.28), rgba(5, 5, 5, 0.08));
+  background: linear-gradient(90deg, rgba(5, 5, 5, 0.78) 0%, rgba(5, 5, 5, 0.58) 46%, rgba(5, 5, 5, 0.38) 100%), linear-gradient(0deg, rgba(5, 5, 5, 0.38), rgba(5, 5, 5, 0.12));
 }
 
 .statement-image--delivery {

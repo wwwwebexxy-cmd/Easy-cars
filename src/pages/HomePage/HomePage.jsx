@@ -73,7 +73,7 @@ const processSteps = [
   { icon: <FaCheck />, image: '/assets/easycars-process-we-handle-bid.webp', imageAlt: 'Vehicles ready for auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
   { icon: <FaTruck />, image: '/assets/easycars-process-transport.webp', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
   { icon: <FaShip />, image: '/assets/easycars-process-shipping.webp', imageAlt: 'Vehicle shipping and customs', title: 'Shipping and customs', text: 'We coordinate shipping and customs clearance into the UAE.' },
-  { icon: <FaTools />, image: '/assets/easycars-process-repairs.webp', imageAlt: 'Vehicle repairs and spare parts', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
+  { icon: <FaTools />, image: '/assets/easycars-process-repairs-parts-branded.webp', imageAlt: 'Automotive technician repairing a vehicle', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
   { icon: <FaCar />, image: '/assets/easycars-process-delivery.webp', imageAlt: 'Vehicle delivered to a UAE home', title: 'Delivered to your door', text: 'Your imported vehicle arrives ready for the next drive.' },
 ];
 
