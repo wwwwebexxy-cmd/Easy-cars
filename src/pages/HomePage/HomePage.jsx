@@ -68,9 +68,9 @@ const heroSlides = [
 ];
 
 const processSteps = [
-  { icon: <FaCar />, image: '/assets/easycars-process-choose-vehicle.webp', imageAlt: 'Vehicle auction listing and bidding platform', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
+  { icon: <FaCar />, image: '/assets/easycars-process-we-handle-bid.webp', imageAlt: 'Vehicles ready to be selected for import', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
   { icon: <FaFileAlt />, image: '/assets/easycars-process-budget.webp', imageAlt: 'EasyCars vehicle budget consultation', title: 'Set your budget', text: 'You decide the maximum amount you are comfortable bidding.' },
-  { icon: <FaCheck />, image: '/assets/easycars-process-we-handle-bid.webp', imageAlt: 'Vehicles ready for auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
+  { icon: <FaCheck />, image: '/assets/easycars-process-choose-vehicle.webp', imageAlt: 'Vehicle auction listing and bidding platform', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
   { icon: <FaTruck />, image: '/assets/easycars-process-transport.webp', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
   { icon: <FaShip />, image: '/assets/easycars-process-shipping.webp', imageAlt: 'Vehicle shipping and customs', title: 'Shipping and customs', text: 'We coordinate shipping and customs clearance into the UAE.' },
   { icon: <FaTools />, image: '/assets/easycars-process-repairs-parts-branded.webp', imageAlt: 'Automotive technician repairing a vehicle', title: 'Repairs and parts', text: 'Repair it with us or deliver it to a garage of your choice.' },
