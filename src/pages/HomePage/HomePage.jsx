@@ -68,7 +68,7 @@ const heroSlides = [
 ];
 
 const processSteps = [
-  { icon: <FaCar />, image: '/assets/easycars-process-auction.webp', imageAlt: 'Vehicle auction yard', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
+  { icon: <FaCar />, image: '/assets/easycars-process-choose-vehicle.webp', imageAlt: 'Vehicle auction listing and bidding platform', title: 'Choose your vehicle', text: 'Tell us the brand, model and vehicle you have in mind.' },
   { icon: <FaFileAlt />, image: '/assets/easycars-process-budget.webp', imageAlt: 'EasyCars vehicle budget consultation', title: 'Set your budget', text: 'You decide the maximum amount you are comfortable bidding.' },
   { icon: <FaCheck />, image: '/assets/easycars-process-bidding.webp', imageAlt: 'EasyCars professional auction bidding', title: 'We handle the bid', text: 'We guide you through the auction and bidding procedures.' },
   { icon: <FaTruck />, image: '/assets/easycars-process-transport.webp', imageAlt: 'Vehicle transportation from the USA', title: 'USA transportation', text: 'Your vehicle is collected and moved from the auction yard.' },
